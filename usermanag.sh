@@ -8,7 +8,11 @@ fi
 
 # Source the functions file (assumed to be in the same directory)
 SCRIPT_DIR="$(dirname "$0")"
-source "${SCRIPT_DIR}/user_functions.sh"
+if [ ! -f "${SCRIPT_DIR}/manage_functions.sh" ]; then
+    echo "Error: manage_functions.sh not found!"
+    exit 1
+fi
+source "${SCRIPT_DIR}/manage_functions.sh"
 
 # Function: Display the menu
 display_menu() {

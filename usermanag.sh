@@ -12,7 +12,7 @@ if [ ! -f "${SCRIPT_DIR}/manage_functions.sh" ]; then
     echo "Error: manage_functions.sh not found!"
     exit 1
 fi
-source "${SCRIPT_DIR}/user_functions.sh"
+source "${SCRIPT_DIR}/manage_functions.sh"
 
 # Function: Display the menu
 display_menu() {

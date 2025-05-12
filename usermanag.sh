@@ -8,7 +8,7 @@ fi
 
 # Source the functions file (assumed to be in the same directory)
 SCRIPT_DIR="$(dirname "$0")"
-source "${SCRIPT_DIR}/user_functions.sh"
+source "${SCRIPT_DIR}/manage_functions.sh"
 
 # Function: Display the menu
 display_menu() {

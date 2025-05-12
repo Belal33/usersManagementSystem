@@ -1,5 +1,5 @@
 #!/bin/bash
-# Main script 
+# Main script
 # Ensure the script is executed as root
 if [ "$(id -u)" -ne 0 ]; then
     echo "This script must be run as root."
@@ -8,7 +8,7 @@ fi
 
 # Source the functions file (assumed to be in the same directory)
 SCRIPT_DIR="$(dirname "$0")"
-source "${SCRIPT_DIR}/manage_functions.sh"
+source "${SCRIPT_DIR}/user_functions.sh"
 
 # Function: Display the menu
 display_menu() {
@@ -28,50 +28,54 @@ display_menu() {
     echo "-----------------------------------------"
     read -p "Enter your choice [1-10]: " choice
     echo ""
-}
 
+    # Validate the input
+    if ! [[ "$choice" =~ ^[1-9]$|^10$ ]]; then
+        echo "Invalid input! Please choose a number between 1 and 10."
+        display_menu
+    fi
+}
 
 # Interactive menu loop
 while true; do
     display_menu
-        case "$choice" in
-        1) show_system_info ;;
-        2) list_bash_users ;;
-        3) 
-            read -p "Enter username to search: " username
-            search_user "$username"
-            ;;
-        4) 
-            read -p "Enter username to add: " username
-            add_user "$username"
-            ;;
-        5) 
-            read -p "Enter username to delete: " username
-            delete_user "$username"
-            ;;
-        6) 
-            read -p "Enter username to show details: " username
-            show_user_details "$username"
-            ;;
-        7) 
-            read -p "Enter username to change password: " username
-            change_user_password "$username"
-            ;;
-        8) 
-            read -p "Enter username to lock: " username
-            lock_user "$username"
-            ;;
-        9) 
-            read -p "Enter username to unlock: " username
-            unlock_user "$username"
-            ;;
-        10)
-            echo "Exiting User Management. Goodbye!"
-            exit 0
-            ;;
-        *)
-            echo "Invalid option. Please select a number between 1 and 10."
-            ;;
+    case "$choice" in
+    1) show_system_info ;;
+    2) list_bash_users ;;
+    3) 
+        read -p "Enter username to search: " username
+        search_user "$username"
+        ;;
+    4) 
+        read -p "Enter username to add: " username
+        add_user "$username"
+        ;;
+    5) 
+        read -p "Enter username to delete: " username
+        delete_user "$username"
+        ;;
+    6) 
+        read -p "Enter username to show details: " username
+        show_user_details "$username"
+        ;;
+    7) 
+        read -p "Enter username to change password: " username
+        change_user_password "$username"
+        ;;
+    8) 
+        read -p "Enter username to lock: " username
+        lock_user "$username"
+        ;;
+    9) 
+        read -p "Enter username to unlock: " username
+        unlock_user "$username"
+        ;;
+    10)
+        exit_program
+        ;;
+    *)
+        echo "Invalid option. Please select a number between 1 and 10."
+        ;;
     esac
 
     echo ""
